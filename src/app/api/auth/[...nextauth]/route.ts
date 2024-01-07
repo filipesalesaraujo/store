@@ -18,7 +18,7 @@ const options = {
           return user
         } else {
           console.log('User not found or invalid credentials');
-          throw new Error("Invalid username or password")
+          throw new Error("Nome de usuário ou senha inválidos")
         }
       }
     })

@@ -6,6 +6,7 @@ import './globals.css'
 import { SessionProvider } from 'next-auth/react'
 import { usePathname } from 'next/navigation';
 import Header from '@/components/header';
+import { CarrinhoProvider } from '@/context/carrinho-provider';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -17,8 +18,11 @@ export default function RootLayout({ children, }: { children: React.ReactNode })
 		<html lang="en">
 			<body className={inter.className}>
 				<SessionProvider>
-					{showHeader && <Header />}
-					{children}
+					<CarrinhoProvider>
+						{showHeader && <Header />}
+						{children}
+					</CarrinhoProvider>
+
 				</SessionProvider>
 			</body>
 		</html>
