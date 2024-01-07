@@ -14,11 +14,7 @@ export default function Home() {
         }
     }, [isLoading, isUserAuthenticated])
 
-    if (isLoading) {
-        return <div>Loading...</div>
-    }
-
     return (
-        <p>Store</p>
+        <p></p>
     )
 }

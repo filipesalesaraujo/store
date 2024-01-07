@@ -10,17 +10,11 @@ import { app } from '@/utils/firebase';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { useCarrinho } from '@/context/carrinho-provider';
-
-interface Produto {
-    nome: string;
-    descricao: string;
-    preco: number;
-    imagemUrl: string;
-}
+import { Produto } from '@/types/produto';
 
 export default function ListaDeProdutos() {
     const [produtos, setProdutos] = useState<Produto[]>([]);
-    const { adicionarAoCarrinho, produtoNoCarrinho } = useCarrinho();
+    const { adicionarAoCarrinho } = useCarrinho();
 
     const router = useRouter()
     const { isLoading, isUserAuthenticated } = useRequireAuthentication()
@@ -60,17 +54,10 @@ export default function ListaDeProdutos() {
                             </CardContent>
                         </div>
                         <CardFooter>
-                            <Button 
-                                className='bg-blue-500 hover:bg-blue-600' 
-                                onClick={() => adicionarAoCarrinho(produto, 1)}
-                                disabled={produtoNoCarrinho(produto)}
-                            >
-                                {produtoNoCarrinho(produto) ? 'Produto Adicionado' : 'Adicionar ao carrinho'}
-                            </Button>
+                            <Button className='bg-blue-500 hover:bg-blue-600' onClick={() => adicionarAoCarrinho(produto, 1)}>Adicionar ao carrinho</Button>
                         </CardFooter>
                     </Card>
                 ))}
-
             </div>
         </section>
     );

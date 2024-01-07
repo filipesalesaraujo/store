@@ -22,7 +22,6 @@ export default function RootLayout({ children, }: { children: React.ReactNode })
 						{showHeader && <Header />}
 						{children}
 					</CarrinhoProvider>
-
 				</SessionProvider>
 			</body>
 		</html>

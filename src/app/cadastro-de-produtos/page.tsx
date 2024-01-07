@@ -1,8 +1,9 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, ChangeEvent, FormEvent, useEffect } from 'react';
 
 import { useRouter } from 'next/navigation';
+
 import { useRequireAuthentication } from '@/utils/auth'
 
 import { getFirestore, collection, addDoc } from 'firebase/firestore';
@@ -25,9 +26,16 @@ export default function CadastroDeProdutos() {
     const [precoError, setPrecoError] = useState('');
     const [imagemError, setImagemError] = useState('');
     const router = useRouter();
+
     const { isLoading, isUserAuthenticated } = useRequireAuthentication()
 
-    const handleSubmit = async (event: any) => {
+    useEffect(() => {
+        if (!isLoading && !isUserAuthenticated) {
+            router.push('/login')
+        }
+    }, [isLoading, isUserAuthenticated])
+
+    const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
         if (!nome) {
@@ -52,10 +60,11 @@ export default function CadastroDeProdutos() {
 
         setIsLoadingButton(true);
 
-        let url = '';
 
         const storage = getStorage(app);
         const imagemRef = imagem ? ref(storage, `imagens/${(imagem as File).name}`) : null;
+        let url = '';
+
         if (imagemRef) {
             if (imagemRef && imagem) {
                 await uploadBytes(imagemRef, imagem);
