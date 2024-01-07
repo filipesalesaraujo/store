@@ -53,13 +53,12 @@ export default function CarrinhoDrawer({ totalItens, botaoDestacado }: { totalIt
             <DrawerTrigger asChild>
                 <button onClick={handleOpenDrawer} className={`transition-colors flex  items-center gap-2 font-bold hover:text-blue-600 ${botaoDestacado ? 'text-green-500' : 'text-blue-500'}`}>
                     <FaShoppingCart />
-                    <span>Carrinho: {totalItens} itens</span>
+                    <span className="flex gap-1"><span className='hidden lg:flex'>Carrinho:</span> {totalItens} itens</span>
                 </button>
             </DrawerTrigger>
             <DrawerContent>
                 <section className='flex justify-center items-center'>
-                    <div className='max-w-[1360px] w-full px-5 flex justify-between gap-5 flex-wrap'>
-                        <DrawerHeader className="font-bold text-xl">Carrinho</DrawerHeader>
+                    <div className='max-w-[1360px] w-full px-5 flex justify-between flex-wrap'>
 
                         {carrinho.length === 0 ? (
                             <div className="flex justify-center items-center flex-col w-full pb-5">
@@ -67,38 +66,55 @@ export default function CarrinhoDrawer({ totalItens, botaoDestacado }: { totalIt
                                 <p className="text-xl">Seu carrinho está vazio.</p>
                             </div>
                         ) : (
-                            <Table>
-                                <TableHeader>
-                                    <TableRow>
-                                        <TableHead>Produto</TableHead>
-                                        <TableHead>Quantidade</TableHead>
-                                        <TableHead className="text-right">Preço</TableHead>
-                                        <TableHead></TableHead>
-                                    </TableRow>
-                                </TableHeader>
-                                <TableBody>
-                                    {carrinho.map((item, index) => (
-                                        <TableRow key={index}>
-                                            <TableCell className="font-medium">{item.nome}</TableCell>
-                                            <TableCell className="flex gap-2 items-center">
-                                                <Button variant="ghost" onClick={() => handleDecrease(item)}> - </Button>
-                                                {item.quantidade}
-                                                <Button variant="ghost" onClick={() => handleIncrease(item)}> + </Button>
-                                            </TableCell>
-                                            <TableCell className="text-right">R$ {item.preco}</TableCell>
-                                            <TableCell className="text-right">
-                                                <Button variant="destructive" onClick={() => handleRemove(item)}> Remover </Button>
-                                            </TableCell>
+                            <>
+                                <Table className="lg:table hidden">
+                                    <TableHeader>
+                                        <TableRow>
+                                            <TableHead>Produto</TableHead>
+                                            <TableHead>Quantidade</TableHead>
+                                            <TableHead className="text-right">Preço</TableHead>
+                                            <TableHead></TableHead>
                                         </TableRow>
+                                    </TableHeader>
+                                    <TableBody>
+                                        {carrinho.map((item, index) => (
+                                            <TableRow key={index}>
+                                                <TableCell className="font-medium">{item.nome}</TableCell>
+                                                <TableCell className="flex gap-2 items-center">
+                                                    <Button variant="ghost" onClick={() => handleDecrease(item)}> - </Button>
+                                                    {item.quantidade}
+                                                    <Button variant="ghost" onClick={() => handleIncrease(item)}> + </Button>
+                                                </TableCell>
+                                                <TableCell className="text-right">R$ {item.preco}</TableCell>
+                                                <TableCell className="text-right">
+                                                    <Button variant="destructive" onClick={() => handleRemove(item)}> Remover </Button>
+                                                </TableCell>
+                                            </TableRow>
+                                        ))}
+                                    </TableBody>
+                                    <TableFooter>
+                                        <TableRow>
+                                            <TableCell colSpan={3}></TableCell>
+                                            <TableCell className="text-right"><strong>Total:</strong> R$ {totalFormatado}</TableCell>
+                                        </TableRow>
+                                    </TableFooter>
+                                </Table>
+                                <div className="lg:hidden flex flex-col gap-5">
+                                    {carrinho.map((item, index) => (
+                                        <div key={index} className="flex flex-col gap-2">
+                                            <div className="font-medium">{item.nome}</div>
+                                            <div className="flex gap-2 items-center">
+                                                <Button className="bg-red-500 hover:bg-red-600" onClick={() => handleDecrease(item)}> - </Button>
+                                                {item.quantidade}
+                                                <Button className="bg-green-500 hover:bg-green-600" onClick={() => handleIncrease(item)}> + </Button>
+                                            </div>
+                                            <div className="">R$ {item.preco}</div>
+                                            <Button variant="destructive" onClick={() => handleRemove(item)}> Remover </Button>
+                                        </div>
                                     ))}
-                                </TableBody>
-                                <TableFooter>
-                                    <TableRow>
-                                        <TableCell colSpan={3}></TableCell>
-                                        <TableCell className="text-right"><strong>Total:</strong> R$ {totalFormatado}</TableCell>
-                                    </TableRow>
-                                </TableFooter>
-                            </Table>
+                                    <div className="text-right pb-5"><strong>Total:</strong> R$ {totalFormatado}</div>
+                                </div>
+                            </>
                         )}
                     </div>
                 </section>
