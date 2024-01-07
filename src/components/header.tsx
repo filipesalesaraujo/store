@@ -6,6 +6,8 @@ import { useCarrinho } from '@/context/carrinho-provider';
 import { useEffect, useState } from 'react';
 import { FaShoppingCart } from "react-icons/fa";
 
+import CarrinhoDrawer from './carrinho-drawer';
+
 export default function Header() {
     const [botaoDestacado, setBotaoDestacado] = useState(false);
     const { data: session } = useSession();
@@ -42,10 +44,7 @@ export default function Header() {
 
                 <div className='flex gap-5 items-center'>
                     <p>Olá, <strong>{session?.user?.name}</strong></p>
-                    <Link href='/carrinho' className={`transition-colors flex  items-center gap-2 font-bold hover:text-blue-600 ${botaoDestacado ? 'text-green-500' : 'text-blue-500'}`}>
-                        <FaShoppingCart />
-                        <span>Carrinho: {totalItens} itens</span>
-                    </Link>
+                    <CarrinhoDrawer totalItens={totalItens} botaoDestacado={botaoDestacado} />
                     <Button className='bg-blue-500 hover:bg-blue-600' onClick={() => signOut()}>Logout</Button>
                 </div>
 

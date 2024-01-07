@@ -3,6 +3,7 @@
 import { useState } from 'react';
 
 import { useRouter } from 'next/navigation';
+import { useRequireAuthentication } from '@/utils/auth'
 
 import { getFirestore, collection, addDoc } from 'firebase/firestore';
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
@@ -14,7 +15,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 
 export default function CadastroDeProdutos() {
-    const [isLoading, setIsLoading] = useState(false);
+    const [isLoadingButton, setIsLoadingButton] = useState(false);
     const [nome, setNome] = useState('');
     const [descricao, setDescricao] = useState('');
     const [preco, setPreco] = useState('');
@@ -24,6 +25,7 @@ export default function CadastroDeProdutos() {
     const [precoError, setPrecoError] = useState('');
     const [imagemError, setImagemError] = useState('');
     const router = useRouter();
+    const { isLoading, isUserAuthenticated } = useRequireAuthentication()
 
     const handleSubmit = async (event: any) => {
         event.preventDefault();
@@ -48,7 +50,7 @@ export default function CadastroDeProdutos() {
             return;
         }
 
-        setIsLoading(true);
+        setIsLoadingButton(true);
 
         let url = '';
 
@@ -69,7 +71,7 @@ export default function CadastroDeProdutos() {
             imagemUrl: url
         });
 
-        setIsLoading(false);
+        setIsLoadingButton(false);
 
         router.push('/lista-de-produtos');
 
@@ -109,8 +111,8 @@ export default function CadastroDeProdutos() {
                         {imagemError && <p className="text-red-500">{imagemError}</p>}
                     </div>
 
-                    <Button className='bg-blue-500 hover:bg-blue-600' type="submit" disabled={isLoading}>
-                        {isLoading ? 'Cadastrando...' : 'Cadastrar produto'}
+                    <Button className='bg-blue-500 hover:bg-blue-600' type="submit" disabled={isLoadingButton}>
+                        {isLoadingButton ? 'Cadastrando...' : 'Cadastrar produto'}
                     </Button>
 
                 </form>

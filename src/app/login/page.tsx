@@ -36,8 +36,8 @@ export default function Login() {
     };
 
     return (
-        <section className="flex items-center justify-center bg-black h-screen">
-            <Card className="w-[350px] bg-white rounded-xl border-[1px] border-black">
+        <section className="flex items-center justify-center h-screen">
+            <Card className="w-[350px] bg-white rounded-xl border-[1px] border-black ">
                 <CardHeader>
                     <CardTitle className="text-black">Login</CardTitle>
                 </CardHeader>

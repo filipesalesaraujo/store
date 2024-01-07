@@ -17,6 +17,7 @@ interface CarrinhoContextData {
     increaseQuantity: (produto: Produto) => void;
     decreaseQuantity: (produto: Produto) => void;
     removerDoCarrinho: (produto: Produto) => void;
+    produtoNoCarrinho: (produto: Produto) => boolean; // Adicionado aqui
 }
 
 const CarrinhoContext = createContext<CarrinhoContextData>({} as CarrinhoContextData);
@@ -72,8 +73,12 @@ export const CarrinhoProvider: React.FC<{ children: React.ReactNode }> = ({ chil
         });
     };
 
+    const produtoNoCarrinho = (produto: Produto) => {
+        return carrinho.some(item => item.nome === produto.nome);
+    };
+
     return (
-        <CarrinhoContext.Provider value={{ carrinho, adicionarAoCarrinho, increaseQuantity, decreaseQuantity, removerDoCarrinho }}>
+        <CarrinhoContext.Provider value={{ carrinho, adicionarAoCarrinho, increaseQuantity, decreaseQuantity, removerDoCarrinho, produtoNoCarrinho }}>
             {children}
         </CarrinhoContext.Provider>
     );
