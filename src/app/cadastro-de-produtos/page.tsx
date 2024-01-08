@@ -90,7 +90,8 @@ export default function CadastroDeProdutos() {
 			nome: nome,
 			descricao: descricao,
 			preco: preco,
-			imagemUrl: url
+			imagemUrl: url,
+			dataPublicacao: new Date()
 		};
 
 		// Adiciona o novo produto ao Firestore

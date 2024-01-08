@@ -7,7 +7,7 @@ import Image from 'next/image';
 
 import { useRequireAuthentication } from '@/utils/auth'
 import { app } from '@/utils/firebase';
-import { getFirestore, collection, getDocs } from 'firebase/firestore';
+import { getFirestore, collection, query, orderBy, getDocs } from 'firebase/firestore';
 
 import { useCarrinho } from '@/context/carrinho-provider';
 
@@ -45,7 +45,8 @@ export default function ListaDeProdutos() {
 		const fetchProdutos = async () => {
 			const db = getFirestore(app);
 			const produtosCollection = collection(db, 'produtos');
-			const produtosSnapshot = await getDocs(produtosCollection);
+			const q = query(produtosCollection, orderBy('dataPublicacao', 'desc'));
+			const produtosSnapshot = await getDocs(q);
 			const produtosList = produtosSnapshot.docs.map(doc => ({
 				id: doc.id,
 				...doc.data()
