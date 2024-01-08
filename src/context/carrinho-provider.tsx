@@ -1,7 +1,4 @@
-'use client';
-
 import React, { createContext, useState, useContext, useEffect } from 'react';
-
 import { CarrinhoContextData, ItemCarrinho } from '@/types/carrinho';
 import { Produto } from '@/types/produto';
 
@@ -10,22 +7,25 @@ const CarrinhoContext = createContext<CarrinhoContextData>({} as CarrinhoContext
 
 // Define o provedor do contexto do carrinho de compras
 export function CarrinhoProvider({ children }: { children: React.ReactNode }) {
-	// Define o estado do carrinho de compras
-	const [carrinho, setCarrinho] = useState<ItemCarrinho[]>(function () {
-		// Recupera o carrinho de compras do armazenamento local, se disponível
+	// Define o estado do carrinho de compras e um estado para rastrear se o cliente está pronto
+	const [carrinho, setCarrinho] = useState<ItemCarrinho[]>([]);
+	const [isClient, setIsClient] = useState(false);
+
+	// Atualiza o estado do carrinho com os dados do localStorage quando o cliente estiver pronto
+	useEffect(() => {
 		if (typeof window !== 'undefined') {
 			const carrinhoSalvo = localStorage.getItem('carrinho');
-			return carrinhoSalvo ? JSON.parse(carrinhoSalvo) : [];
+			setCarrinho(carrinhoSalvo ? JSON.parse(carrinhoSalvo) : []);
+			setIsClient(true);
 		}
-		return [];
-	});
+	}, []);
 
 	// Atualiza o armazenamento local sempre que o carrinho de compras é atualizado
 	useEffect(function () {
-		if (typeof window !== 'undefined') {
+		if (isClient) {
 			localStorage.setItem('carrinho', JSON.stringify(carrinho));
 		}
-	}, [carrinho]);
+	}, [carrinho, isClient]);
 
 	// Define várias funções para manipular o carrinho de compras
 	function adicionarAoCarrinho(produto: Produto, quantidade: number) {
@@ -73,12 +73,12 @@ export function CarrinhoProvider({ children }: { children: React.ReactNode }) {
 		return carrinho.some(item => item.nome === produto.nome);
 	};
 
-	// Retorna o provedor do contexto do carrinho de compras
-	return (
+	// Retorna o provedor do contexto do carrinho de compras, mas apenas se o cliente estiver pronto
+	return isClient ? (
 		<CarrinhoContext.Provider value={{ carrinho, adicionarAoCarrinho, increaseQuantity, decreaseQuantity, removerDoCarrinho, produtoNoCarrinho }}>
 			{children}
 		</CarrinhoContext.Provider>
-	);
+	) : null;
 };
 
 // Define um hook personalizado para usar o contexto do carrinho de compras
