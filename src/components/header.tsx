@@ -32,12 +32,12 @@ export default function Header() {
                 <NavigationMenu className='hidden lg:flex'>
                     <NavigationMenuList className='flex gap-5'>
 
-                        <NavigationMenuItem >
-                            <Link className='transition-colors hover:bg-blue-200 flex p-2 rounded-sm justify-center items-center' href='/cadastro-de-produtos'>Cadastro de Produtos</Link>
-                        </NavigationMenuItem>
-
                         <NavigationMenuItem>
                             <Link className='transition-colors hover:bg-blue-200 flex p-2 rounded-sm justify-center items-center' href='/lista-de-produtos'>Lista de Produtos</Link>
+                        </NavigationMenuItem>
+
+                        <NavigationMenuItem >
+                            <Link className='transition-colors hover:bg-blue-200 flex p-2 rounded-sm justify-center items-center' href='/cadastro-de-produtos'>Cadastro de Produtos</Link>
                         </NavigationMenuItem>
 
                     </NavigationMenuList>

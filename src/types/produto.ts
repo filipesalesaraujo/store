@@ -3,6 +3,7 @@ export interface Produto {
     descricao: string;
     preco: number;
     imagemUrl: string;
+    quantidade: number;
 }
 
 export interface ProdutoCardProps {

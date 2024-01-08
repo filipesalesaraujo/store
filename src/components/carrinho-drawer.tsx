@@ -1,18 +1,16 @@
-import { Button } from "@/components/ui/button"
-import { Drawer, DrawerTrigger, DrawerContent, DrawerHeader, DrawerFooter } from "@/components/ui/drawer";
-import { FaShoppingCart } from "react-icons/fa";
 import { useState } from "react";
-import { useCarrinho } from "@/context/carrinho-provider";
-import {
-    Table,
-    TableBody,
-    TableCell,
-    TableFooter,
-    TableHead,
-    TableHeader,
-    TableRow,
-} from "@/components/ui/table"
+
 import { TbMoodEmpty } from "react-icons/tb";
+import { FaShoppingCart } from "react-icons/fa";
+import { IoMdCloseCircle } from "react-icons/io";
+
+import { Button } from "@/components/ui/button"
+import { Drawer, DrawerTrigger, DrawerContent, DrawerTitle, DrawerClose } from "@/components/ui/drawer";
+import { Table, TableBody, TableCell, TableFooter, TableHead, TableHeader, TableRow } from "@/components/ui/table"
+
+import { useCarrinho } from "@/context/carrinho-provider";
+
+import { Produto } from "@/types/produto";
 
 export default function CarrinhoDrawer({ totalItens, botaoDestacado }: { totalItens: number, botaoDestacado: boolean }) {
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -34,17 +32,17 @@ export default function CarrinhoDrawer({ totalItens, botaoDestacado }: { totalIt
 
     const totalFormatado = total.toLocaleString('pt-BR');
 
-    const handleIncrease = (item: any) => {
+    const handleIncrease = (item: Produto) => {
         increaseQuantity(item);
     };
 
-    const handleDecrease = (item: any) => {
+    const handleDecrease = (item: Produto) => {
         if (item.quantidade > 1) {
             decreaseQuantity(item);
         }
     };
 
-    const handleRemove = (item: any) => {
+    const handleRemove = (item: Produto) => {
         removerDoCarrinho(item);
     };
 
@@ -59,6 +57,13 @@ export default function CarrinhoDrawer({ totalItens, botaoDestacado }: { totalIt
             <DrawerContent>
                 <section className='flex justify-center items-center'>
                     <div className='max-w-[1360px] w-full px-5 flex justify-between flex-wrap'>
+
+                        <div className="flex justify-between w-full max-w-full">
+                            <DrawerTitle>Carrinho</DrawerTitle>
+                            <DrawerClose asChild>
+                                <Button variant="outline">Fechar</Button>
+                            </DrawerClose>
+                        </div>
 
                         {carrinho.length === 0 ? (
                             <div className="flex justify-center items-center flex-col w-full pb-5">
@@ -99,7 +104,7 @@ export default function CarrinhoDrawer({ totalItens, botaoDestacado }: { totalIt
                                         </TableRow>
                                     </TableFooter>
                                 </Table>
-                                <div className="lg:hidden flex flex-col gap-5">
+                                <div className="lg:hidden flex flex-col gap-5 max-w-full w-full">
                                     {carrinho.map((item, index) => (
                                         <div key={index} className="flex flex-col gap-2">
                                             <div className="font-medium">{item.nome}</div>

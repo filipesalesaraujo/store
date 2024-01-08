@@ -25,6 +25,7 @@ export default function CadastroDeProdutos() {
     const [descricaoError, setDescricaoError] = useState('');
     const [precoError, setPrecoError] = useState('');
     const [imagemError, setImagemError] = useState('');
+
     const router = useRouter();
 
     const { isLoading, isUserAuthenticated } = useRequireAuthentication()
@@ -86,6 +87,14 @@ export default function CadastroDeProdutos() {
 
     };
 
+    const handlePrecoChange = (e) => {
+        let value = e.target.value;
+        value = value.replace(/\D/g, ""); // Remove todos os caracteres não numéricos
+        value = value.replace(/(\d)(\d{2})$/, "$1,$2"); // Adiciona a vírgula antes dos últimos dois dígitos
+        value = value.replace(/(?=(\d{3})+(\D))\B/g, "."); // Adiciona o ponto como separador de milhar
+        setPreco(value);
+    }
+
     const handleImageChange = (event: any) => {
         setImagem(event.target.files[0]);
         setImagemError('');
@@ -110,7 +119,7 @@ export default function CadastroDeProdutos() {
 
                     <div className='flex flex-col gap-2'>
                         <Label htmlFor="preco" className="text-black">Preço</Label>
-                        <Input className='focus-visible:ring-transparent focus:border-blue-500 transition-colors border-black' type="text" value={preco} onChange={(e) => { setPreco(e.target.value); setPrecoError(''); }} />
+                        <Input className='focus-visible:ring-transparent focus:border-blue-500 transition-colors border-black' type="text" value={preco} onChange={handlePrecoChange} />
                         {precoError && <p className="text-red-500">{precoError}</p>}
                     </div>
 
