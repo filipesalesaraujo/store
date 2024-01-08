@@ -13,60 +13,60 @@ import { useCarrinho } from '@/context/carrinho-provider';
 import CarrinhoDrawer from './carrinho-drawer';
 
 export default function Header() {
-    const [botaoDestacado, setBotaoDestacado] = useState(false);
-    const { data: session } = useSession();
-    const { carrinho } = useCarrinho();
-    const totalItens = carrinho.reduce((total, produto) => total + produto.quantidade, 0);
+	const [botaoDestacado, setBotaoDestacado] = useState(false);
+	const { data: session } = useSession();
+	const { carrinho } = useCarrinho();
+	const totalItens = carrinho.reduce((total, produto) => total + produto.quantidade, 0);
 
-    useEffect(() => {
-        if (totalItens > 0) {
-            setBotaoDestacado(true);
-            const timer = setTimeout(() => {
-                setBotaoDestacado(false);
-            }, 1000);
-            return () => clearTimeout(timer);
-        }
-    }, [totalItens]);
+	useEffect(() => {
+		if (totalItens > 0) {
+			setBotaoDestacado(true);
+			const timer = setTimeout(() => {
+				setBotaoDestacado(false);
+			}, 1000);
+			return () => clearTimeout(timer);
+		}
+	}, [totalItens]);
 
-    return (
-        <header className='flex justify-center items-center border-b-[1px] border-gray-200'>
-            <div className='max-w-[1360px] w-full p-5 flex justify-between gap-5'>
+	return (
+		<header className='flex justify-center items-center border-b-[1px] border-gray-200'>
+			<div className='max-w-[1360px] w-full p-5 flex justify-between gap-5'>
 
-                <NavigationMenu className='hidden lg:flex'>
-                    <NavigationMenuList className='flex gap-5'>
+				<NavigationMenu className='hidden lg:flex'>
+					<NavigationMenuList className='flex gap-5'>
 
-                        <NavigationMenuItem>
-                            <Link className='transition-colors hover:bg-blue-200 flex p-2 rounded-sm justify-center items-center' href='/lista-de-produtos'>Lista de Produtos</Link>
-                        </NavigationMenuItem>
+						<NavigationMenuItem>
+							<Link className='transition-colors hover:bg-blue-200 flex p-2 rounded-sm justify-center items-center' href='/lista-de-produtos'>Lista de Produtos</Link>
+						</NavigationMenuItem>
 
-                        <NavigationMenuItem >
-                            <Link className='transition-colors hover:bg-blue-200 flex p-2 rounded-sm justify-center items-center' href='/cadastro-de-produtos'>Cadastro de Produtos</Link>
-                        </NavigationMenuItem>
+						<NavigationMenuItem >
+							<Link className='transition-colors hover:bg-blue-200 flex p-2 rounded-sm justify-center items-center' href='/cadastro-de-produtos'>Cadastro de Produtos</Link>
+						</NavigationMenuItem>
 
-                    </NavigationMenuList>
-                </NavigationMenu>
+					</NavigationMenuList>
+				</NavigationMenu>
 
-                <Menubar className='flex lg:hidden'>
-                    <MenubarMenu>
-                        <MenubarTrigger>Menu</MenubarTrigger>
-                        <MenubarContent>
-                            <MenubarItem>
-                                <Link className='transition-colors hover:bg-blue-200 flex p-2 rounded-sm justify-center items-center' href='/cadastro-de-produtos'>Cadastro de Produtos</Link>
-                            </MenubarItem>
-                            <MenubarItem>
-                                <Link className='transition-colors hover:bg-blue-200 flex p-2 rounded-sm justify-center items-center' href='/lista-de-produtos'>Lista de Produtos</Link>
-                            </MenubarItem>
-                        </MenubarContent>
-                    </MenubarMenu>
-                </Menubar>
+				<Menubar className='flex lg:hidden'>
+					<MenubarMenu>
+						<MenubarTrigger>Menu</MenubarTrigger>
+						<MenubarContent>
+							<MenubarItem>
+								<Link className='transition-colors hover:bg-blue-200 flex p-2 rounded-sm justify-center items-center' href='/cadastro-de-produtos'>Cadastro de Produtos</Link>
+							</MenubarItem>
+							<MenubarItem>
+								<Link className='transition-colors hover:bg-blue-200 flex p-2 rounded-sm justify-center items-center' href='/lista-de-produtos'>Lista de Produtos</Link>
+							</MenubarItem>
+						</MenubarContent>
+					</MenubarMenu>
+				</Menubar>
 
-                <div className='flex gap-5 items-center'>
-                    <p className='hidden lg:flex gap-1'>Olá,<strong>{session?.user?.name}</strong></p>
-                    <CarrinhoDrawer totalItens={totalItens} botaoDestacado={botaoDestacado} />
-                    <Button className='bg-blue-500 hover:bg-blue-600' onClick={() => signOut()}>Logout</Button>
-                </div>
+				<div className='flex gap-5 items-center'>
+					<p className='hidden lg:flex gap-1'>Olá,<strong>{session?.user?.name}</strong></p>
+					<CarrinhoDrawer totalItens={totalItens} botaoDestacado={botaoDestacado} />
+					<Button className='bg-blue-500 hover:bg-blue-600' onClick={() => signOut()}>Logout</Button>
+				</div>
 
-            </div>
-        </header>
-    );
+			</div>
+		</header>
+	);
 }

@@ -5,20 +5,20 @@ import { useRouter } from 'next/navigation'
 import { useRequireAuthentication } from '../utils/auth'
 
 export default function Home() {
-    const router = useRouter()
-    const { isLoading, isUserAuthenticated } = useRequireAuthentication()
+	const router = useRouter()
+	const { isLoading, isUserAuthenticated } = useRequireAuthentication()
 
-    useEffect(() => {
-        if (!isLoading) {
-            if (!isUserAuthenticated) {
-                router.push('/login')
-            } else {
-                router.push('/lista-de-produtos') // Redireciona para a página 'lista de produtos' se o usuário estiver autenticado
-            }
-        }
-    }, [isLoading, isUserAuthenticated])
+	useEffect(() => {
+		if (!isLoading) {
+			if (!isUserAuthenticated) {
+				router.push('/login')
+			} else {
+				router.push('/lista-de-produtos')
+			}
+		}
+	}, [isLoading, isUserAuthenticated])
 
-    return (
-        <></>
-    )
+	return (
+		<></>
+	)
 }
