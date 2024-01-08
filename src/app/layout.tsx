@@ -33,7 +33,7 @@ export default function RootLayout({ children, }: { children: React.ReactNode })
 				<meta property="og:description" content="A melhor loja online para suas necessidades de compras" />
 				<link rel="icon" href="/favicon.ico" />
 			</head>
-			<body className={inter.className}>
+			<body className={`${inter.className} bg-gray-200`}>
 				{/* Fornecendo a sessão e o contexto do carrinho para os componentes filhos. */}
 				<SessionProvider>
 					<CarrinhoProvider>

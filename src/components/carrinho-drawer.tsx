@@ -54,7 +54,7 @@ export default function CarrinhoDrawer({ totalItens, botaoDestacado }: { totalIt
 	return (
 		<Drawer>
 			<DrawerTrigger asChild>
-				<button onClick={handleOpenDrawer} aria-label="Abrir carrinho" className={`transition-colors flex  items-center gap-2 font-bold hover:text-blue-600 p-2 ${botaoDestacado ? ' rounded-md bg-green-500 text-white' : 'text-blue-500'}`}>
+				<button onClick={handleOpenDrawer} aria-label="Abrir carrinho" className={`transition-colors flex  items-center gap-2 font-bold hover:text-blue-600 p-2 ${botaoDestacado ? ' rounded-md text-green-500' : 'text-blue-500'}`}>
 					<FaShoppingCart />
 					<span className="flex gap-1"><span className='hidden lg:flex'>Carrinho:</span> {totalItens} itens</span>
 				</button>
