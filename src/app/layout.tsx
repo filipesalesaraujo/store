@@ -18,8 +18,8 @@ export default function RootLayout({ children, }: { children: React.ReactNode })
 	// Obtendo o caminho atual.
 	const pathname = usePathname();
 	// Verificando se o cabeçalho deve ser mostrado. O cabeçalho não é mostrado na página de login.
-	const showHeader = pathname !== '/login';
-
+	const showHeader = pathname !== '/login' && pathname !== '/';
+	
 	// Renderizando o layout.
 	return (
 		<html lang="pt-br">
