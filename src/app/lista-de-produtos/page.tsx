@@ -59,12 +59,20 @@ export default function ListaDeProdutos() {
 	// Renderizando a lista de produtos.
 	return (
 		<section className='flex justify-center items-center'>
-			<div role="list" className='max-w-[1360px] w-full p-5 grid md:grid-cols-3 grid-cols-1 gap-5'>
-				{produtos.map((produto, index) => (
-					<div role="listitem" key={index}>
-						<ProdutoCard produto={produto} adicionarAoCarrinho={adicionarAoCarrinho} produtoNoCarrinho={produtoNoCarrinho} />
-					</div>
-				))}
+			<div role="list" className='max-w-[1360px] w-full p-5 flex flex-col gap-5 '>
+
+				<div>
+					<h1 className="text-2xl font-bold">Lista de Produto</h1>
+					<p className="text-gray-600">Aqui estão todos os nossos produtos disponíveis:</p>
+				</div>
+
+				<div className='grid md:grid-cols-3 grid-cols-1 gap-5 h-full'>
+					{produtos.map((produto, index) => (
+						<div role="listitem" key={index} className="h-full">
+							<ProdutoCard produto={produto} adicionarAoCarrinho={adicionarAoCarrinho} produtoNoCarrinho={produtoNoCarrinho} />
+						</div>
+					))}
+				</div>
 			</div>
 		</section>
 	);

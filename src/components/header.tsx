@@ -50,7 +50,7 @@ export default function Header() {
 		<header className='flex justify-center items-center border-b-[1px] border-gray-200' role="banner">
 			<div className='max-w-[1360px] w-full p-5 flex justify-between gap-5'>
 				<div className='flex items-center gap-10'>
-					<Link href='/' className='text-2xl font-bold' aria-label="Home">Store</Link>
+					<Link href='/' className='hidden lg:flex text-2xl font-bold' aria-label="Home">Store</Link>
 					{/* Renderiza o menu de navegação */}
 					<NavigationMenu className='hidden lg:flex' aria-label="Menu de navegação">
 						<NavigationMenuList className='flex gap-1'>

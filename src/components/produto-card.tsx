@@ -7,9 +7,9 @@ import { ProdutoCardProps } from '@/types/produto';
 // Define o componente ProdutoCard
 export default function ProdutoCard({ produto, adicionarAoCarrinho, produtoNoCarrinho }: ProdutoCardProps) {
 	const isProdutoNoCarrinho = produtoNoCarrinho(produto);
-	
+
 	return (
-		<Card className='flex flex-col justify-between' role="region" aria-label="Produto">
+		<Card className='flex flex-col justify-between h-full' role="region" aria-label="Produto">
 			<div>
 				<CardHeader>
 					<CardTitle>{produto.nome}</CardTitle>

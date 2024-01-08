@@ -1,4 +1,3 @@
-// Importando as funções e tipos necessários da biblioteca NextAuth.js e do provedor de credenciais.
 import NextAuth, { RequestInternal, User } from 'next-auth'
 import CredentialsProvider from "next-auth/providers/credentials"
 

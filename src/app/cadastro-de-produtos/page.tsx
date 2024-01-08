@@ -1,6 +1,5 @@
 'use client';
 
-// Importando as funções e tipos necessários das bibliotecas React, Next.js e Firebase.
 import { useState, ChangeEvent, FormEvent, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useRequireAuthentication } from '@/utils/auth'
@@ -137,30 +136,36 @@ export default function CadastroDeProdutos() {
 	// Renderizando o formulário.
 	return (
 		<section className='flex justify-center items-center'>
-			<div className='max-w-[1360px] w-full p-5 flex justify-between gap-5'>
+			<div className='max-w-[1360px] w-full p-5 flex justify-between gap-5 flex-col'>
+
+				<div>
+					<h1 className="text-2xl font-bold">Cadastro de Produtos</h1>
+					<p className="text-gray-600">Preencha o formulário abaixo para cadastrar um novo produto.</p>
+
+				</div>
 				<form onSubmit={handleSubmit} className='flex flex-col gap-5 w-full'>
 
 					<div className='flex flex-col gap-2'>
 						<Label htmlFor="nome" className="text-black">Nome</Label>
-						<Input id="nome" aria-label="Nome" className='focus-visible:ring-transparent focus:border-blue-500 transition-colors border-black' type="text" value={nome} onChange={(e) => { setNome(e.target.value); setNomeError(''); }} />
+						<Input id="nome" aria-label="Nome" className='focus-visible:ring-transparent focus:border-blue-500 transition-colors ' type="text" value={nome} onChange={(e) => { setNome(e.target.value); setNomeError(''); }} />
 						{nomeError && <p className="text-red-500">{nomeError}</p>}
 					</div>
 
 					<div className='flex flex-col gap-2'>
 						<Label htmlFor="descricao" className="text-black">Descrição</Label>
-						<Textarea id="descricao" aria-label="Descrição" className='focus-visible:ring-transparent focus:border-blue-500 transition-colors border-black' value={descricao} onChange={(e) => { setDescricao(e.target.value); setDescricaoError(''); }} />
+						<Textarea id="descricao" aria-label="Descrição" className='focus-visible:ring-transparent focus:border-blue-500 transition-colors ' value={descricao} onChange={(e) => { setDescricao(e.target.value); setDescricaoError(''); }} />
 						{descricaoError && <p className="text-red-500">{descricaoError}</p>}
 					</div>
 
 					<div className='flex flex-col gap-2'>
 						<Label htmlFor="preco" className="text-black">Preço</Label>
-						<Input id="preco" aria-label="Preço" className='focus-visible:ring-transparent focus:border-blue-500 transition-colors border-black' type="text" value={preco} onChange={handlePrecoChange} />
+						<Input id="preco" aria-label="Preço" className='focus-visible:ring-transparent focus:border-blue-500 transition-colors' type="text" value={preco} onChange={handlePrecoChange} />
 						{precoError && <p className="text-red-500">{precoError}</p>}
 					</div>
 
 					<div className='flex flex-col gap-2'>
 						<Label htmlFor="imagem" className="text-black">Imagem</Label>
-						<Input id="imagem" aria-label="Imagem" className='focus-visible:ring-transparent focus:border-blue-500 transition-colors border-black' type="file" onChange={handleImageChange}  />
+						<Input id="imagem" aria-label="Imagem" className='focus-visible:ring-transparent focus:border-blue-500 transition-colors ' type="file" onChange={handleImageChange} />
 						{imagemError && <p className="text-red-500">{imagemError}</p>}
 					</div>
 
