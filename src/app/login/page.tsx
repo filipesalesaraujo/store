@@ -22,7 +22,7 @@ export default function Login() {
 		if (session) {
 			router.push('/lista-de-produtos');
 		}
-	}, [session]);
+	}, [session, router]);
 
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();

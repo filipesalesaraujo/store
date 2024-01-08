@@ -16,7 +16,7 @@ export default function Home() {
 				router.push('/lista-de-produtos')
 			}
 		}
-	}, [isLoading, isUserAuthenticated])
+	}, [isLoading, isUserAuthenticated, router])
 
 	return (
 		<></>

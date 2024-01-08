@@ -86,13 +86,13 @@ export default function CarrinhoDrawer({ totalItens, botaoDestacado }: { totalIt
 											<TableRow key={index}>
 												<TableCell className="font-medium">{item.nome}</TableCell>
 												<TableCell className="flex gap-2 items-center">
-													<Button variant="ghost" onClick={() => handleDecrease(item)}> - </Button>
+													<Button variant="ghost" onClick={() => handleDecrease(item as Produto)}> - </Button>
 													{item.quantidade}
-													<Button variant="ghost" onClick={() => handleIncrease(item)}> + </Button>
+													<Button variant="ghost" onClick={() => handleIncrease(item as Produto)}> + </Button>
 												</TableCell>
 												<TableCell className="text-right">R$ {item.preco}</TableCell>
 												<TableCell className="text-right">
-													<Button variant="destructive" onClick={() => handleRemove(item)}> Remover </Button>
+													<Button variant="destructive" onClick={() => handleRemove(item as Produto)}> Remover </Button>
 												</TableCell>
 											</TableRow>
 										))}
@@ -109,12 +109,12 @@ export default function CarrinhoDrawer({ totalItens, botaoDestacado }: { totalIt
 										<div key={index} className="flex flex-col gap-2">
 											<div className="font-medium">{item.nome}</div>
 											<div className="flex gap-2 items-center">
-												<Button className="bg-red-500 hover:bg-red-600" onClick={() => handleDecrease(item)}> - </Button>
+												<Button className="bg-red-500 hover:bg-red-600" onClick={() => handleDecrease(item as Produto)}> - </Button>
 												{item.quantidade}
-												<Button className="bg-green-500 hover:bg-green-600" onClick={() => handleIncrease(item)}> + </Button>
+												<Button className="bg-green-500 hover:bg-green-600" onClick={() => handleIncrease(item as Produto)}> + </Button>
 											</div>
 											<div className="">R$ {item.preco}</div>
-											<Button variant="destructive" onClick={() => handleRemove(item)}> Remover </Button>
+											<Button variant="destructive" onClick={() => handleRemove(item as Produto)}> Remover </Button>
 										</div>
 									))}
 									<div className="text-right pb-5"><strong>Total:</strong> R$ {totalFormatado}</div>

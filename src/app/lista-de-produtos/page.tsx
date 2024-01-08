@@ -23,7 +23,7 @@ export default function ListaDeProdutos() {
 		if (!isLoading && !isUserAuthenticated) {
 			router.push('/login')
 		}
-	}, [isLoading, isUserAuthenticated])
+	}, [isLoading, isUserAuthenticated, router])
 
 	useEffect(() => {
 		const fetchProdutos = async () => {
@@ -35,7 +35,7 @@ export default function ListaDeProdutos() {
 		};
 
 		fetchProdutos();
-	}, []);
+	}, [router]);
 
 	return (
 		<section className='flex justify-center items-center'>

@@ -34,7 +34,7 @@ export default function CadastroDeProdutos() {
 		if (!isLoading && !isUserAuthenticated) {
 			router.push('/login')
 		}
-	}, [isLoading, isUserAuthenticated])
+	}, [isLoading, isUserAuthenticated, router])
 
 	const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
 		event.preventDefault();

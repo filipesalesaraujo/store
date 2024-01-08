@@ -17,18 +17,23 @@ interface CarrinhoContextData {
 	increaseQuantity: (produto: Produto) => void;
 	decreaseQuantity: (produto: Produto) => void;
 	removerDoCarrinho: (produto: Produto) => void;
-	produtoNoCarrinho: (produto: Produto) => boolean; // Adicionado aqui
+	produtoNoCarrinho: (produto: Produto) => boolean;
 }
 
 const CarrinhoContext = createContext<CarrinhoContextData>({} as CarrinhoContextData);
 export function CarrinhoProvider({ children }: { children: React.ReactNode }) {
 	const [carrinho, setCarrinho] = useState<ItemCarrinho[]>(function () {
-		const carrinhoSalvo = localStorage.getItem('carrinho');
-		return carrinhoSalvo ? JSON.parse(carrinhoSalvo) : [];
+		if (typeof window !== 'undefined') {
+			const carrinhoSalvo = localStorage.getItem('carrinho');
+			return carrinhoSalvo ? JSON.parse(carrinhoSalvo) : [];
+		}
+		return [];
 	});
 
 	useEffect(function () {
-		localStorage.setItem('carrinho', JSON.stringify(carrinho));
+		if (typeof window !== 'undefined') {
+			localStorage.setItem('carrinho', JSON.stringify(carrinho));
+		}
 	}, [carrinho]);
 
 	function adicionarAoCarrinho(produto: Produto, quantidade: number) {
