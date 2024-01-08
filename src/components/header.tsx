@@ -47,31 +47,31 @@ export default function Header() {
 
 	// Renderiza o cabeçalho
 	return (
-		<header className='flex justify-center items-center border-b-[1px] border-gray-200'>
+		<header className='flex justify-center items-center border-b-[1px] border-gray-200' role="banner">
 			<div className='max-w-[1360px] w-full p-5 flex justify-between gap-5'>
 				<div className='flex items-center gap-10'>
-					<Link href='/' className='text-2xl font-bold'>Store</Link>
+					<Link href='/' className='text-2xl font-bold' aria-label="Home">Store</Link>
 					{/* Renderiza o menu de navegação */}
-					<NavigationMenu className='hidden lg:flex'>
+					<NavigationMenu className='hidden lg:flex' aria-label="Menu de navegação">
 						<NavigationMenuList className='flex gap-1'>
 							<NavigationMenuItem>
-								<Link className='transition-colors hover:bg-blue-200 flex p-2 rounded-sm justify-center items-center' href='/lista-de-produtos'>Lista de Produtos</Link>
+								<Link className='transition-colors hover:bg-blue-200 flex p-2 rounded-sm justify-center items-center' href='/lista-de-produtos' aria-label="Lista de Produtos">Lista de Produtos</Link>
 							</NavigationMenuItem>
 							<NavigationMenuItem >
-								<Link className='transition-colors hover:bg-blue-200 flex p-2 rounded-sm justify-center items-center' href='/cadastro-de-produtos'>Cadastro de Produtos</Link>
+								<Link className='transition-colors hover:bg-blue-200 flex p-2 rounded-sm justify-center items-center' href='/cadastro-de-produtos' aria-label="Cadastro de Produtos">Cadastro de Produtos</Link>
 							</NavigationMenuItem>
 						</NavigationMenuList>
 					</NavigationMenu>
 					{/* Renderiza o menu para dispositivos móveis */}
-					<Menubar className='flex lg:hidden'>
+					<Menubar className='flex lg:hidden' aria-label="Menu para dispositivos móveis">
 						<MenubarMenu>
 							<MenubarTrigger>Menu</MenubarTrigger>
 							<MenubarContent>
 								<MenubarItem>
-									<Link className='transition-colors hover:bg-blue-200 flex p-2 rounded-sm justify-center items-center' href='/cadastro-de-produtos'>Cadastro de Produtos</Link>
+									<Link className='transition-colors hover:bg-blue-200 flex p-2 rounded-sm justify-center items-center' href='/cadastro-de-produtos' aria-label="Cadastro de Produtos">Cadastro de Produtos</Link>
 								</MenubarItem>
 								<MenubarItem>
-									<Link className='transition-colors hover:bg-blue-200 flex p-2 rounded-sm justify-center items-center' href='/lista-de-produtos'>Lista de Produtos</Link>
+									<Link className='transition-colors hover:bg-blue-200 flex p-2 rounded-sm justify-center items-center' href='/lista-de-produtos' aria-label="Lista de Produtos">Lista de Produtos</Link>
 								</MenubarItem>
 							</MenubarContent>
 						</MenubarMenu>
@@ -80,8 +80,8 @@ export default function Header() {
 				{/* Renderiza a saudação ao usuário, o carrinho e o botão de logout */}
 				<div className='flex gap-5 items-center'>
 					<p className='hidden lg:flex gap-1'>Olá,<strong>{session?.user?.name}</strong></p>
-					<CarrinhoDrawer totalItens={totalItens} botaoDestacado={botaoDestacado} />
-					<Button className='bg-blue-500 hover:bg-blue-600' onClick={handleLogout} disabled={isSaindo}>
+					<CarrinhoDrawer totalItens={totalItens} botaoDestacado={botaoDestacado} aria-label="Carrinho de compras" />
+					<Button className='bg-blue-500 hover:bg-blue-600' onClick={handleLogout} disabled={isSaindo} aria-label={isSaindo ? 'Saindo...' : 'Logout'}>
 						{isSaindo ? 'Saindo...' : 'Logout'}
 					</Button>
 				</div>

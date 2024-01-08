@@ -55,12 +55,15 @@ export default function ListaDeProdutos() {
 
 		fetchProdutos();
 	}, [router]);
+
 	// Renderizando a lista de produtos.
 	return (
 		<section className='flex justify-center items-center'>
-			<div className='max-w-[1360px] w-full p-5 grid md:grid-cols-3 grid-cols-1 gap-5'>
+			<div role="list" className='max-w-[1360px] w-full p-5 grid md:grid-cols-3 grid-cols-1 gap-5'>
 				{produtos.map((produto, index) => (
-					<ProdutoCard key={index} produto={produto} adicionarAoCarrinho={adicionarAoCarrinho} produtoNoCarrinho={produtoNoCarrinho} />
+					<div role="listitem" key={index}>
+						<ProdutoCard produto={produto} adicionarAoCarrinho={adicionarAoCarrinho} produtoNoCarrinho={produtoNoCarrinho} />
+					</div>
 				))}
 			</div>
 		</section>

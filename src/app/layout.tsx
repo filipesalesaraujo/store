@@ -31,7 +31,6 @@ export default function RootLayout({ children, }: { children: React.ReactNode })
 				<meta name="keywords" content="loja, ecommerce, produtos, online" />
 				<meta property="og:title" content="Loja Online" />
 				<meta property="og:description" content="A melhor loja online para suas necessidades de compras" />
-				<meta name="twitter:card" content="summary_large_image" />
 				<link rel="icon" href="/favicon.ico" />
 			</head>
 			<body className={inter.className}>

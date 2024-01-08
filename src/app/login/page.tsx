@@ -65,11 +65,11 @@ export default function Login() {
 					<form className="flex flex-col gap-5" onSubmit={(e: React.FormEvent<HTMLFormElement>) => handleSubmit(e)}>
 						<div className="flex flex-col gap-2.5">
 							<Label htmlFor="username" className="text-black">Username</Label>
-							<Input type="text" id="username" placeholder="" className="focus-visible:ring-transparent  rounded-xl text-black transition-colors focus:border-blue-300" value={username} onChange={(e) => setUsername(e.target.value)} />
+							<Input type="text" id="username" aria-label="Username" placeholder="" className="focus-visible:ring-transparent  rounded-xl text-black transition-colors focus:border-blue-300" value={username} onChange={(e) => setUsername(e.target.value)} />
 						</div>
 						<div className="flex flex-col gap-2.5">
 							<Label htmlFor="password" className="text-black">Password</Label>
-							<Input type="password" id="password" placeholder="" className="focus-visible:ring-transparent rounded-xl text-black transition-colors focus:border-blue-300" value={password} onChange={(e) => setPassword(e.target.value)} />
+							<Input type="password" id="password" aria-label="Password" placeholder="" className="focus-visible:ring-transparent rounded-xl text-black transition-colors focus:border-blue-300" value={password} onChange={(e) => setPassword(e.target.value)} />
 						</div>
 						<Button type="submit" className="bg-blue-500 hover:bg-blue-600 rounded-xl border-black" disabled={!username || !password || isEntrando}>
 							{isEntrando ? 'Entrando...' : 'Sign in'}

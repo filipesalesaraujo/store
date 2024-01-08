@@ -142,25 +142,25 @@ export default function CadastroDeProdutos() {
 
 					<div className='flex flex-col gap-2'>
 						<Label htmlFor="nome" className="text-black">Nome</Label>
-						<Input className='focus-visible:ring-transparent focus:border-blue-500 transition-colors border-black' type="text" value={nome} onChange={(e) => { setNome(e.target.value); setNomeError(''); }} />
+						<Input id="nome" aria-label="Nome" className='focus-visible:ring-transparent focus:border-blue-500 transition-colors border-black' type="text" value={nome} onChange={(e) => { setNome(e.target.value); setNomeError(''); }} />
 						{nomeError && <p className="text-red-500">{nomeError}</p>}
 					</div>
 
 					<div className='flex flex-col gap-2'>
 						<Label htmlFor="descricao" className="text-black">Descrição</Label>
-						<Textarea className='focus-visible:ring-transparent focus:border-blue-500 transition-colors border-black' value={descricao} onChange={(e) => { setDescricao(e.target.value); setDescricaoError(''); }} />
+						<Textarea id="descricao" aria-label="Descrição" className='focus-visible:ring-transparent focus:border-blue-500 transition-colors border-black' value={descricao} onChange={(e) => { setDescricao(e.target.value); setDescricaoError(''); }} />
 						{descricaoError && <p className="text-red-500">{descricaoError}</p>}
 					</div>
 
 					<div className='flex flex-col gap-2'>
 						<Label htmlFor="preco" className="text-black">Preço</Label>
-						<Input className='focus-visible:ring-transparent focus:border-blue-500 transition-colors border-black' type="text" value={preco} onChange={handlePrecoChange} />
+						<Input id="preco" aria-label="Preço" className='focus-visible:ring-transparent focus:border-blue-500 transition-colors border-black' type="text" value={preco} onChange={handlePrecoChange} />
 						{precoError && <p className="text-red-500">{precoError}</p>}
 					</div>
 
 					<div className='flex flex-col gap-2'>
 						<Label htmlFor="imagem" className="text-black">Imagem</Label>
-						<Input className='focus-visible:ring-transparent focus:border-blue-500 transition-colors border-black' type="file" onChange={handleImageChange} />
+						<Input id="imagem" aria-label="Imagem" className='focus-visible:ring-transparent focus:border-blue-500 transition-colors border-black' type="file" onChange={handleImageChange}  />
 						{imagemError && <p className="text-red-500">{imagemError}</p>}
 					</div>
 
