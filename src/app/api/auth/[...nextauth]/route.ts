@@ -45,7 +45,7 @@ const options = {
 		}
 	},
 	// Definindo o segredo para a sessão de autenticação.
-	secret: process.env.SECRET,
+	secret: process.env.NEXTAUTH_SECRET,
 }
 
 // Criando o manipulador NextAuth com as opções definidas.
