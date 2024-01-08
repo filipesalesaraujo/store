@@ -80,7 +80,7 @@ export default function ListaDeProdutos() {
 					<Input className='lg:max-w-[250px] w-full focus-visible:ring-transparent focus:border-blue-500 transition-colors' type="text" value={busca} onChange={e => setBusca(e.target.value)} placeholder="Buscar produtos..." />
 				</div>
 
-				<div className='grid md:grid-cols-3 grid-cols-1 gap-5 h-full'>
+				<div className='grid lg:grid-cols-3 grid-cols-1 gap-5 h-full'>
 					{produtos.length > 0 ? (
 						produtos.map((produto, index) => (
 							<div role="listitem" key={index} className="h-full">
