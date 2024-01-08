@@ -9,12 +9,16 @@ export default function Home() {
     const { isLoading, isUserAuthenticated } = useRequireAuthentication()
 
     useEffect(() => {
-        if (!isLoading && !isUserAuthenticated) {
-            router.push('/login')
+        if (!isLoading) {
+            if (!isUserAuthenticated) {
+                router.push('/login')
+            } else {
+                router.push('/lista-de-produtos') // Redireciona para a página 'lista de produtos' se o usuário estiver autenticado
+            }
         }
     }, [isLoading, isUserAuthenticated])
 
     return (
-        <p></p>
+        <></>
     )
 }
