@@ -1,24 +1,7 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
 
-interface Produto {
-	nome: string;
-	descricao: string;
-	preco: number;
-	imagemUrl: string;
-}
-
-interface ItemCarrinho extends Produto {
-	quantidade: number;
-}
-
-interface CarrinhoContextData {
-	carrinho: ItemCarrinho[];
-	adicionarAoCarrinho: (produto: Produto, quantidade: number) => void;
-	increaseQuantity: (produto: Produto) => void;
-	decreaseQuantity: (produto: Produto) => void;
-	removerDoCarrinho: (produto: Produto) => void;
-	produtoNoCarrinho: (produto: Produto) => boolean;
-}
+import { CarrinhoContextData, ItemCarrinho } from '@/types/carrinho';
+import { Produto } from '@/types/produto';
 
 const CarrinhoContext = createContext<CarrinhoContextData>({} as CarrinhoContextData);
 export function CarrinhoProvider({ children }: { children: React.ReactNode }) {
