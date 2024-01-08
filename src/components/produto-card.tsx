@@ -1,11 +1,10 @@
-'use client';
-
+// Importa as dependências necessárias
 import Image from 'next/image';
-
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from '@/components/ui/button';
 import { ProdutoCardProps } from '@/types/produto';
 
+// Define o componente ProdutoCard
 export default function ProdutoCard({ produto, adicionarAoCarrinho, produtoNoCarrinho }: ProdutoCardProps) {
 	return (
 		<Card className='flex flex-col justify-between'>

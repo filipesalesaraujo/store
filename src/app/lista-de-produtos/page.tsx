@@ -1,30 +1,40 @@
 'use client';
 
-import { useRouter } from 'next/navigation'
-import { useRequireAuthentication } from '@/utils/auth'
-
 import { useEffect, useState } from 'react';
-import { getFirestore, collection, getDocs } from 'firebase/firestore';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { app } from '@/utils/firebase';
+
+import { useRouter } from 'next/navigation'
 import Image from 'next/image';
+
+import { useRequireAuthentication } from '@/utils/auth'
+import { app } from '@/utils/firebase';
+import { getFirestore, collection, getDocs } from 'firebase/firestore';
+
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from '@/components/ui/button';
+
 import { useCarrinho } from '@/context/carrinho-provider';
+
 import { Produto } from '@/types/produto';
 
+// Definindo o componente ListaDeProdutos.
 export default function ListaDeProdutos() {
+	// Definindo o estado para armazenar a lista de produtos.
 	const [produtos, setProdutos] = useState<Produto[]>([]);
+	// Obtendo a função adicionarAoCarrinho do contexto do carrinho.
 	const { adicionarAoCarrinho } = useCarrinho();
 
+	// Obtendo o objeto router e o estado de autenticação do usuário.
 	const router = useRouter()
 	const { isLoading, isUserAuthenticated } = useRequireAuthentication()
 
+	// Verificando se o usuário está autenticado. Se não estiver, redireciona para a página de login.
 	useEffect(() => {
 		if (!isLoading && !isUserAuthenticated) {
 			router.push('/login')
 		}
 	}, [isLoading, isUserAuthenticated, router])
 
+	// Buscando a lista de produtos do Firestore quando o componente é montado.
 	useEffect(() => {
 		const fetchProdutos = async () => {
 			const db = getFirestore(app);
@@ -37,10 +47,10 @@ export default function ListaDeProdutos() {
 		fetchProdutos();
 	}, [router]);
 
+	// Renderizando a lista de produtos.
 	return (
 		<section className='flex justify-center items-center'>
 			<div className='max-w-[1360px] w-full p-5 grid md:grid-cols-3 grid-cols-1 gap-5'>
-
 				{produtos.map((produto, index) => (
 					<Card key={index} className='flex flex-col justify-between'>
 						<div>
