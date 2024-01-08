@@ -18,6 +18,8 @@ export default function Login() {
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
 	const [errorMessage, setErrorMessage] = useState('');
+	const [isEntrando, setIsEntrando] = useState(false);
+
 	const router = useRouter();
 
 	// Obtendo a sessão do usuário.
@@ -33,7 +35,13 @@ export default function Login() {
 	// Definindo a função para lidar com o envio do formulário.
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
+
+		setIsEntrando(true);
+
 		const result = await signIn('credentials', { username, password, redirect: false });
+
+		// Adicione um atraso artificial de 2 segundos (2000 milissegundos)
+		await new Promise((resolve) => setTimeout(resolve, 2000));
 
 		// Verificando se ocorreu um erro durante o login.
 		if (result && result.error) {
@@ -41,26 +49,31 @@ export default function Login() {
 		} else {
 			router.push('/');
 		}
+		setIsEntrando(false);
+
 	};
 
 	// Renderizando o formulário de login.
 	return (
-		<section className="flex items-center justify-center h-screen">
-			<Card className="w-[350px] bg-white rounded-xl border-[1px] border-black ">
+		<section className="flex items-center justify-center h-screen p-5 flex-col gap-5">
+			<h1 className='text-3xl font-bold'>Store</h1>
+			<Card className="w-full max-w-[350px] bg-white rounded-xl border-[1px]  ">
 				<CardHeader>
 					<CardTitle className="text-black">Login</CardTitle>
 				</CardHeader>
 				<CardContent>
-					<form className="flex flex-col gap-5" onSubmit={handleSubmit}>
+					<form className="flex flex-col gap-5" onSubmit={(e: React.FormEvent<HTMLFormElement>) => handleSubmit(e)}>
 						<div className="flex flex-col gap-2.5">
 							<Label htmlFor="username" className="text-black">Username</Label>
-							<Input type="text" id="username" placeholder="" className="focus-visible:ring-transparent border-black rounded-xl text-black transition-colors focus:border-blue-300" value={username} onChange={(e) => setUsername(e.target.value)} />
+							<Input type="text" id="username" placeholder="" className="focus-visible:ring-transparent  rounded-xl text-black transition-colors focus:border-blue-300" value={username} onChange={(e) => setUsername(e.target.value)} />
 						</div>
 						<div className="flex flex-col gap-2.5">
 							<Label htmlFor="password" className="text-black">Password</Label>
-							<Input type="password" id="password" placeholder="" className="focus-visible:ring-transparent border-black rounded-xl text-black transition-colors focus:border-blue-300" value={password} onChange={(e) => setPassword(e.target.value)} />
+							<Input type="password" id="password" placeholder="" className="focus-visible:ring-transparent rounded-xl text-black transition-colors focus:border-blue-300" value={password} onChange={(e) => setPassword(e.target.value)} />
 						</div>
-						<Button type="submit" className="bg-blue-500 hover:bg-blue-600 rounded-xl border-black" disabled={!username || !password}>Sign in</Button>
+						<Button type="submit" className="bg-blue-500 hover:bg-blue-600 rounded-xl border-black" disabled={!username || !password || isEntrando}>
+							{isEntrando ? 'Entrando...' : 'Sign in'}
+						</Button>
 						{errorMessage && <Alert variant="destructive" className='flex justify-center p-2'><AlertTitle className='m-0'>{errorMessage}</AlertTitle></Alert>}
 					</form>
 				</CardContent>
