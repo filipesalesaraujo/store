@@ -3,7 +3,6 @@
 import { useEffect, useState } from 'react';
 
 import { useRouter } from 'next/navigation'
-import Image from 'next/image';
 
 import { useRequireAuthentication } from '@/utils/auth'
 import { app } from '@/utils/firebase';
@@ -73,12 +72,12 @@ export default function ListaDeProdutos() {
 		<section className='flex justify-center items-center'>
 			<div role="list" className='max-w-[1360px] w-full p-5 flex flex-col gap-5 '>
 
-				<div className='flex gap-5 justify-between items-center'>
-					<div>
+				<div className='flex gap-5 justify-between items-center flex-col lg:flex-row'>
+					<div className='w-full'>
 						<h1 className="text-2xl font-bold">Lista de Produto</h1>
 						<p className="text-gray-600">Aqui estão todos os nossos produtos disponíveis:</p>
 					</div>
-					<Input className='max-w-[250px] w-full focus-visible:ring-transparent focus:border-blue-500 transition-colors' type="text" value={busca} onChange={e => setBusca(e.target.value)} placeholder="Buscar produtos..." />
+					<Input className='lg:max-w-[250px] w-full focus-visible:ring-transparent focus:border-blue-500 transition-colors' type="text" value={busca} onChange={e => setBusca(e.target.value)} placeholder="Buscar produtos..." />
 				</div>
 
 				<div className='grid md:grid-cols-3 grid-cols-1 gap-5 h-full'>
