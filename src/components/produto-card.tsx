@@ -9,14 +9,18 @@ export default function ProdutoCard({ produto, adicionarAoCarrinho, produtoNoCar
 	const isProdutoNoCarrinho = produtoNoCarrinho(produto);
 
 	return (
-		<Card className='flex flex-col justify-between h-full' role="region" aria-label="Produto">
+		<Card className='flex flex-col justify-between h-full lg:h-[640px]' role="region" aria-label="Produto">
 			<div>
-				<CardHeader>
-					<CardTitle>{produto.nome}</CardTitle>
+				<CardHeader className=' lg:h-[130px]'>
+					<CardTitle>{produto.nome.length > 53 ? produto.nome.substring(0, 53) + '...' : produto.nome}</CardTitle>
 				</CardHeader>
 				<CardContent className='flex flex-col gap-5'>
-					<Image width={500} height={500} src={produto.imagemUrl} alt={produto.nome} />
-					<CardDescription >{produto.descricao}</CardDescription>
+					<div className="h-64 bg-gray-200 relative">
+						<Image layout="fill" src={produto.imagemUrl} alt={produto.nome} objectFit="cover" />
+					</div>
+					<CardDescription>
+						{produto.descricao.length > 200 ? produto.descricao.substring(0, 200) + '...' : produto.descricao}
+					</CardDescription>
 					<CardDescription><strong>Preço:</strong> R$ {produto.preco}</CardDescription>
 				</CardContent>
 			</div>

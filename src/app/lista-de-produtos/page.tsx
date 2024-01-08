@@ -67,7 +67,7 @@ export default function ListaDeProdutos() {
 
 		fetchProdutos();
 	}, [router, busca]);
-	
+
 	// Renderizando a lista de produtos.
 	return (
 		<section className='flex justify-center items-center'>
@@ -82,12 +82,15 @@ export default function ListaDeProdutos() {
 				</div>
 
 				<div className='grid md:grid-cols-3 grid-cols-1 gap-5 h-full'>
-					{produtos.map((produto, index) => (
-						<div role="listitem" key={index} className="h-full">
-							<ProdutoCard produto={produto} adicionarAoCarrinho={adicionarAoCarrinho} produtoNoCarrinho={produtoNoCarrinho} />
-						</div>
-					))}
+					{produtos.length > 0 ? (
+						produtos.map((produto, index) => (
+							<div role="listitem" key={index} className="h-full">
+								<ProdutoCard produto={produto} adicionarAoCarrinho={adicionarAoCarrinho} produtoNoCarrinho={produtoNoCarrinho} />
+							</div>
+						))
+					) : null}
 				</div>
+				{produtos.length === 0 && <p className='text-3xl'>Nenhum produto encontrado.</p>}
 			</div>
 		</section>
 	);
