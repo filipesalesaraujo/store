@@ -38,10 +38,11 @@ export default function ProdutoCard({ produto, adicionarAoCarrinho, produtoNoCar
 					<CardDescription>
 						{produto.descricao.length > 200 ? produto.descricao.substring(0, 200) + '...' : produto.descricao}
 					</CardDescription>
-					<CardDescription><strong>Preço:</strong> R$ {produto.preco}</CardDescription>
+					
 				</CardContent>
 			</div>
-			<CardFooter>
+			<CardFooter className='flex flex-col justify-start items-start gap-5'>
+			<CardDescription className='text-xl text-black'><strong>Preço:</strong> R$ {produto.preco}</CardDescription>
 				{isProdutoNoCarrinho ? (
 					<Button className='bg-gray-500 cursor-not-allowed' disabled aria-label="Produto já adicionado ao carrinho">
 						Produto Adicionado
