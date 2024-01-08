@@ -90,7 +90,7 @@ export default function CadastroDeProdutos() {
     const handlePrecoChange = (e: ChangeEvent<HTMLInputElement>) => {
         let value = e.target.value;
         value = value.replace(/\D/g, "");
-        value = value.replace(/(\d)(\d{2})$/, "$1,$2");
+        value = value.replace(/(\d)(\d{2})$/, "$1,$2"); 
         value = value.replace(/(?=(\d{3})+(\D))\B/g, ".");
         setPreco(value);
     }
@@ -98,16 +98,21 @@ export default function CadastroDeProdutos() {
     const handleImageChange = (event: any) => {
         const file = event.target.files[0];
         const MAX_SIZE = 2 * 1024 * 1024; // 2MB
+        const validImageTypes = ['image/gif', 'image/jpeg', 'image/png', 'image/webp'];
 
-        if (file.type.split('/')[0] !== 'image') {
-            setImagemError('O arquivo deve ser uma imagem');
-        } else if (file.size > MAX_SIZE) {
-            setImagemError('O arquivo é muito grande');
-        } else {
-            setImagemError('');
+        if (file.size > MAX_SIZE) {
+            setImagemError('O tamanho do arquivo é muito grande. O tamanho máximo permitido é 2MB.');
+            return;
         }
-    }
 
+        if (!validImageTypes.includes(file.type)) {
+            setImagemError('Tipo de arquivo inválido. Apenas imagens (gif, jpeg, png, webp) são permitidas.');
+            return;
+        }
+
+        setImagem(file);
+        setImagemError('');
+    };
     return (
         <section className='flex justify-center items-center'>
             <div className='max-w-[1360px] w-full p-5 flex justify-between gap-5'>
@@ -127,7 +132,12 @@ export default function CadastroDeProdutos() {
 
                     <div className='flex flex-col gap-2'>
                         <Label htmlFor="preco" className="text-black">Preço</Label>
-                        <Input className='focus-visible:ring-transparent focus:border-blue-500 transition-colors border-black' type="text" value={preco} onChange={handlePrecoChange} />
+                        <Input
+                            className='focus-visible:ring-transparent focus:border-blue-500 transition-colors border-black'
+                            type="text"
+                            value={preco}
+                            onChange={handlePrecoChange}
+                        />
                         {precoError && <p className="text-red-500">{precoError}</p>}
                     </div>
 
