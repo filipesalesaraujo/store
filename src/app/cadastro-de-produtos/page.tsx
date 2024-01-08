@@ -4,7 +4,7 @@
 import { useState, ChangeEvent, FormEvent, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useRequireAuthentication } from '@/utils/auth'
-import { getFirestore, collection, addDoc } from 'firebase/firestore';
+import { getFirestore, collection, addDoc, doc, setDoc } from 'firebase/firestore';
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { app } from '@/utils/firebase';
 import { Input } from '@/components/ui/input';
@@ -80,12 +80,22 @@ export default function CadastroDeProdutos() {
 
 		// Adicionando o produto ao Firebase Firestore.
 		const db = getFirestore(app);
-		const docRef = await addDoc(collection(db, "produtos"), {
+		const produtosCollection = collection(db, "produtos");
+
+		// Cria um novo documento com um ID gerado automaticamente
+		const novoProdutoDoc = doc(produtosCollection);
+
+		// Agora você pode usar novoProdutoDoc.id como o ID do novo produto
+		const novoProduto = {
+			id: novoProdutoDoc.id,
 			nome: nome,
 			descricao: descricao,
 			preco: preco,
 			imagemUrl: url
-		});
+		};
+
+		// Adiciona o novo produto ao Firestore
+		await setDoc(novoProdutoDoc, novoProduto);
 
 		setIsLoadingButton(false);
 

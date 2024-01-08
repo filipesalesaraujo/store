@@ -6,6 +6,9 @@ import { ProdutoCardProps } from '@/types/produto';
 
 // Define o componente ProdutoCard
 export default function ProdutoCard({ produto, adicionarAoCarrinho, produtoNoCarrinho }: ProdutoCardProps) {
+	const isProdutoNoCarrinho = produtoNoCarrinho(produto);
+
+
 	return (
 		<Card className='flex flex-col justify-between'>
 			<div>
@@ -19,9 +22,15 @@ export default function ProdutoCard({ produto, adicionarAoCarrinho, produtoNoCar
 				</CardContent>
 			</div>
 			<CardFooter>
-				<Button className='bg-blue-500 hover:bg-blue-600' onClick={() => adicionarAoCarrinho(produto, 1)} >
-					{produtoNoCarrinho(produto) ? 'Produto Adicionado' : 'Adicionar ao carrinho'}
-				</Button>
+				{isProdutoNoCarrinho ? (
+					<Button className='bg-gray-500 cursor-not-allowed' disabled>
+						Produto Adicionado
+					</Button>
+				) : (
+					<Button className='bg-blue-500 hover:bg-blue-600' onClick={() => adicionarAoCarrinho(produto, 1)}>
+						Adicionar ao carrinho
+					</Button>
+				)}
 			</CardFooter>
 		</Card>
 	);
