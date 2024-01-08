@@ -87,18 +87,26 @@ export default function CadastroDeProdutos() {
 
     };
 
-    const handlePrecoChange = (e) => {
+    const handlePrecoChange = (e: ChangeEvent<HTMLInputElement>) => {
         let value = e.target.value;
-        value = value.replace(/\D/g, ""); // Remove todos os caracteres não numéricos
-        value = value.replace(/(\d)(\d{2})$/, "$1,$2"); // Adiciona a vírgula antes dos últimos dois dígitos
-        value = value.replace(/(?=(\d{3})+(\D))\B/g, "."); // Adiciona o ponto como separador de milhar
+        value = value.replace(/\D/g, "");
+        value = value.replace(/(\d)(\d{2})$/, "$1,$2");
+        value = value.replace(/(?=(\d{3})+(\D))\B/g, ".");
         setPreco(value);
     }
 
     const handleImageChange = (event: any) => {
-        setImagem(event.target.files[0]);
-        setImagemError('');
-    };
+        const file = event.target.files[0];
+        const MAX_SIZE = 2 * 1024 * 1024; // 2MB
+
+        if (file.type.split('/')[0] !== 'image') {
+            setImagemError('O arquivo deve ser uma imagem');
+        } else if (file.size > MAX_SIZE) {
+            setImagemError('O arquivo é muito grande');
+        } else {
+            setImagemError('');
+        }
+    }
 
     return (
         <section className='flex justify-center items-center'>

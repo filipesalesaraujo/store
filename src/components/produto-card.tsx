@@ -4,7 +4,6 @@ import Image from 'next/image';
 
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from '@/components/ui/button';
-
 import { ProdutoCardProps } from '@/types/produto';
 
 export default function ProdutoCard({ produto, adicionarAoCarrinho, produtoNoCarrinho }: ProdutoCardProps) {
@@ -21,11 +20,7 @@ export default function ProdutoCard({ produto, adicionarAoCarrinho, produtoNoCar
                 </CardContent>
             </div>
             <CardFooter>
-                <Button
-                    className='bg-blue-500 hover:bg-blue-600'
-                    onClick={() => adicionarAoCarrinho(produto, 1)}
-                    disabled={produtoNoCarrinho(produto)}
-                >
+                <Button className='bg-blue-500 hover:bg-blue-600' onClick={() => adicionarAoCarrinho(produto, 1)} >
                     {produtoNoCarrinho(produto) ? 'Produto Adicionado' : 'Adicionar ao carrinho'}
                 </Button>
             </CardFooter>

@@ -1,13 +1,16 @@
+import { useEffect, useState } from 'react';
+
+import Link from 'next/link';
+
 import { useSession, signOut } from 'next-auth/react'
+
 import { Button } from './ui/button';
 import { NavigationMenu, NavigationMenuItem, NavigationMenuLink, NavigationMenuList } from './ui/navigation-menu';
-import Link from 'next/link';
+import { Menubar, MenubarContent, MenubarItem, MenubarMenu, MenubarTrigger } from './ui/menubar';
+
 import { useCarrinho } from '@/context/carrinho-provider';
-import { useEffect, useState } from 'react';
-import { FaShoppingCart } from "react-icons/fa";
 
 import CarrinhoDrawer from './carrinho-drawer';
-import { Menubar, MenubarContent, MenubarItem, MenubarMenu, MenubarTrigger } from './ui/menubar';
 
 export default function Header() {
     const [botaoDestacado, setBotaoDestacado] = useState(false);
@@ -58,7 +61,7 @@ export default function Header() {
                 </Menubar>
 
                 <div className='flex gap-5 items-center'>
-                    <p className='hidden lg:flex'>Olá, <strong>{session?.user?.name}</strong></p>
+                    <p className='hidden lg:flex gap-1'>Olá,<strong>{session?.user?.name}</strong></p>
                     <CarrinhoDrawer totalItens={totalItens} botaoDestacado={botaoDestacado} />
                     <Button className='bg-blue-500 hover:bg-blue-600' onClick={() => signOut()}>Logout</Button>
                 </div>

@@ -1,4 +1,4 @@
-import NextAuth, { RequestInternal } from 'next-auth'
+import NextAuth, { RequestInternal, User } from 'next-auth'
 import CredentialsProvider from "next-auth/providers/credentials"
 
 const options = {
@@ -9,15 +9,17 @@ const options = {
         username: { label: "Username", type: "text" },
         password: { label: "Password", type: "password" }
       },
-      async authorize(credentials: Record<"username" | "password", string> | undefined, req: Pick<RequestInternal, "body" | "query" | "headers" | "method">) {
-        console.log('Credentials:', credentials);
-        const user = { id: "1", username: "jsmith", password: "securepassword", name: "J Smith" }
+      async authorize(credentials: Record<"username" | "password", string> | undefined, req: Pick<RequestInternal, "body" | "query" | "headers" | "method">): Promise<User | null> {
+        const user = { 
+          id: process.env.USER_ID || '', 
+          username: process.env.USER_USERNAME || '', 
+          password: process.env.USER_PASSWORD || '', 
+          name: process.env.USER_NAME || '' 
+        }
 
         if (credentials && credentials.username === user.username && credentials.password === user.password) {
-          console.log('User found:', user);
           return user
         } else {
-          console.log('User not found or invalid credentials');
           throw new Error("Nome de usuário ou senha inválidos")
         }
       }
