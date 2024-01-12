@@ -12,6 +12,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Alert, AlertTitle } from '@/components/ui/alert';
 
+import { ImSpinner } from "react-icons/im";
+
 // Definindo o componente Login.
 export default function Login() {
 	// Definindo o estado para armazenar o nome de usuário, senha e mensagem de erro.
@@ -55,9 +57,10 @@ export default function Login() {
 
 	// Renderizando o formulário de login.
 	return (
-		<section className="flex items-center justify-center h-screen p-5 flex-col gap-5">
+		<section className={` flex items-center justify-center h-screen p-5 flex-col gap-5 `}>
 			<h1 className='text-3xl font-bold'>Store</h1>
-			<Card className="w-full max-w-[350px] bg-white rounded-xl border-[1px]  ">
+			<Card className={`relative w-full max-w-[350px] bg-white rounded-xl border-[1px] ${isEntrando ? 'opacity-50 pointer-events-none' : ''} `}>
+				{isEntrando && <div className='absolute top-0 right-0 bottom-0 left-0 w-full flex items-center justify-center'><ImSpinner size={50} color='black' className='animate-spin' /></div>}
 				<CardHeader>
 					<CardTitle className="text-black">Login</CardTitle>
 				</CardHeader>
@@ -72,7 +75,7 @@ export default function Login() {
 							<Input type="password" id="password" aria-label="Password" placeholder="" className="focus-visible:ring-transparent rounded-xl text-black transition-colors focus:border-blue-300" value={password} onChange={(e) => setPassword(e.target.value)} />
 						</div>
 						<Button type="submit" className="bg-blue-500 hover:bg-blue-600 rounded-xl border-black" disabled={!username || !password || isEntrando}>
-							{isEntrando ? 'Entrando...' : 'Sign in'}
+							Sign in
 						</Button>
 						<Button onClick={() => signIn('google')} className="bg-red-500 hover:bg-red-600 rounded-xl border-black">
 							Entrar com Google
