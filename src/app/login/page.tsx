@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 
 import { useRouter } from 'next/navigation';
 
-import { signIn, useSession } from "next-auth/react"
+import { getSession, signIn, useSession } from "next-auth/react"
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -35,24 +35,39 @@ export default function Login() {
 	}, [session, router]);
 
 	// Definindo a função para lidar com o envio do formulário.
-	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+	const handleNormalSignIn = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-
 		setIsEntrando(true);
 
 		const result = await signIn('credentials', { username, password, redirect: false });
 
-		// Adicione um atraso artificial de 2 segundos (2000 milissegundos)
-		await new Promise((resolve) => setTimeout(resolve, 2000));
-
-		// Verificando se ocorreu um erro durante o login.
 		if (result && result.error) {
 			setErrorMessage(result.error);
 		} else {
-			router.push('/');
+			const session = await getSession();
+			if (session) {
+				router.push('/lista-de-produtos');
+			}
 		}
-		setIsEntrando(false);
 
+		setIsEntrando(false);
+	};
+
+	const handleGoogleSignIn = async () => {
+		setIsEntrando(true);
+
+		const result = await signIn('google', { redirect: false });
+
+		if (result && result.error) {
+			setErrorMessage(result.error);
+		} else {
+			const session = await getSession();
+			if (session) {
+				router.push('/lista-de-produtos');
+			}
+		}
+
+		setIsEntrando(false);
 	};
 
 	// Renderizando o formulário de login.
@@ -65,7 +80,7 @@ export default function Login() {
 					<CardTitle className="text-black">Login</CardTitle>
 				</CardHeader>
 				<CardContent>
-					<form className="flex flex-col gap-5" onSubmit={(e: React.FormEvent<HTMLFormElement>) => handleSubmit(e)}>
+					<form className="flex flex-col gap-5" onSubmit={handleNormalSignIn}>
 						<div className="flex flex-col gap-2.5">
 							<Label htmlFor="username" className="text-black">Username</Label>
 							<Input type="text" id="username" aria-label="Username" placeholder="" className="focus-visible:ring-transparent  rounded-xl text-black transition-colors focus:border-blue-300" value={username} onChange={(e) => setUsername(e.target.value)} />
@@ -77,7 +92,7 @@ export default function Login() {
 						<Button type="submit" className="bg-blue-500 hover:bg-blue-600 rounded-xl border-black" disabled={!username || !password || isEntrando}>
 							Sign in
 						</Button>
-						<Button onClick={() => signIn('google')} className="bg-red-500 hover:bg-red-600 rounded-xl border-black">
+						<Button type='button' onClick={handleGoogleSignIn} className="bg-red-500 hover:bg-red-600 rounded-xl border-black">
 							Entrar com Google
 						</Button>
 						{errorMessage && <Alert variant="destructive" className='flex justify-center p-2'><AlertTitle className='m-0'>{errorMessage}</AlertTitle></Alert>}
