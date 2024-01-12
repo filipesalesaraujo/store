@@ -74,6 +74,9 @@ export default function Login() {
 						<Button type="submit" className="bg-blue-500 hover:bg-blue-600 rounded-xl border-black" disabled={!username || !password || isEntrando}>
 							{isEntrando ? 'Entrando...' : 'Sign in'}
 						</Button>
+						<Button onClick={() => signIn('google')} className="bg-red-500 hover:bg-red-600 rounded-xl border-black">
+							Entrar com Google
+						</Button>
 						{errorMessage && <Alert variant="destructive" className='flex justify-center p-2'><AlertTitle className='m-0'>{errorMessage}</AlertTitle></Alert>}
 					</form>
 				</CardContent>
